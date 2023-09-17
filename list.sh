@@ -13,16 +13,23 @@
 
 list_users() {
     psql <<EOF
-SELECT * FROM "user"
+SELECT * FROM "users"
 EOF
 }
 
 list_todos() {
-    echo "Your code"
+    psql <<EOF
+SELECT * FROM "todos"
+EOF
 }
 
 list_user_todos() {
-    echo "User: $1"
+    psql <<EOF
+SELECT * FROM "users"
+INNER JOIN todos
+ON users.user_id = todos.user_id
+ORDER BY users.name;
+EOF
 }
 
 main() {
