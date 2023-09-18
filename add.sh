@@ -6,7 +6,7 @@
 # Usage:
 #    add.sh add-user John
 #    add.sh add-user Paul
-#    add.sh add-todo John Meeting
+#    add.sh add-todo John "Meeting with my boss"
 #    add.sh add-todo Paul "Make breakfast"
 #
 
