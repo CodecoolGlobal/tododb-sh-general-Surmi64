@@ -11,12 +11,23 @@
 #
 
 add_user() {
-    echo "User: $1"
+    psql <<EOF
+    INSERT INTO "users" (name) 
+    VALUES ('$1');
+EOF
+    echo "$1 added to users table."
 }
 
 add_todo() {
-    echo "User: $1"
-    echo "Todo: $2"
+    echo "User: $2"
+    echo "Todo: $1"
+    psql <<EOF
+    INSERT INTO todos (task, user_id)
+    SELECT '$1', user_id
+    FROM users
+    WHERE users.name ILIKE '$2';
+EOF
+    echo "$1 todo added to the todos table with $2's id."
 }
 
 main() {
