@@ -13,31 +13,31 @@
 
 list_users() {
     psql <<EOF
-SELECT * FROM "users"
+    SELECT * FROM "users"
 EOF
 }
 
 list_todos() {
     psql <<EOF
-SELECT * FROM "todos"
+    SELECT * FROM "todos"
 EOF
 }
 
 list_user_todos() {
     psql <<EOF
-SELECT * FROM "users"
-INNER JOIN todos
-ON users.user_id = todos.user_id
-ORDER BY users.name;
+    SELECT * FROM "users"
+    INNER JOIN todos
+    ON users.user_id = todos.user_id
+    ORDER BY users.name;
 EOF
 }
 
 list_user_todos_by_user() {
     psql <<EOF
-SELECT * FROM users
-INNER JOIN todos
-ON users.user_id = todos.user_id
-WHERE users.name ILIKE '$1';
+    SELECT * FROM users
+    INNER JOIN todos
+    ON users.user_id = todos.user_id
+    WHERE users.name ILIKE '$1';
 EOF
 }
 
