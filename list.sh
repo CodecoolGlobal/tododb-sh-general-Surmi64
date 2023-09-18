@@ -51,8 +51,11 @@ main() {
     elif [ "$1" == "list-user-todos" ] && [[ "$2" =~ [a-z] ]]
     then
         list_user_todos_by_user "$2"
-    else
+    elif [[ "$1" == "list-user-todos" ]]
+    then
         list_user_todos
+    else
+        echo "Please specify at least one parameter: list-users, list-todos, list-user-todos <name>, or list-user-todos to all todo with users."
     fi
 }
 
