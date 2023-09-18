@@ -32,6 +32,15 @@ ORDER BY users.name;
 EOF
 }
 
+list_user_todos_by_user() {
+    psql <<EOF
+SELECT * FROM users
+INNER JOIN todos
+ON users.user_id = todos.user_id
+WHERE users.name ILIKE '$1';
+EOF
+}
+
 main() {
     if [[ "$1" == "list-users" ]]
     then
@@ -39,9 +48,11 @@ main() {
     elif [[ "$1" == "list-todos" ]]
     then
         list_todos
-    elif [[ "$1" == "list-user-todos" ]]
+    elif [ "$1" == "list-user-todos" ] && [[ "$2" =~ [a-z] ]]
     then
-        list_user_todos "$2"
+        list_user_todos_by_user "$2"
+    else
+        list_user_todos
     fi
 }
 
