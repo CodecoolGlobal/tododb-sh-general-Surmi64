@@ -13,16 +13,22 @@
 
 list_users() {
     psql <<EOF
-SELECT * FROM "user"
+SELECT * FROM "users"
 EOF
 }
 
 list_todos() {
-    echo "Your code"
+    psql <<EOF
+SELECT * FROM "todos"
+EOF
 }
 
 list_user_todos() {
-    echo "User: $1"
+   psql <<EOF
+   SELECT * FROM "todos" 
+   JOIN "users" ON todos.user_id=users.user_id
+   WHERE users.name LIKE '$1'
+EOF
 }
 
 main() {
