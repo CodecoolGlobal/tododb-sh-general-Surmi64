@@ -11,12 +11,15 @@
 #
 
 add_user() {
-    echo "User: $1"
+    psql <<EOF
+INSERT INTO "users" (name) VALUES ('$1')
+EOF
 }
 
 add_todo() {
-    echo "User: $1"
-    echo "Todo: $2"
+    psql <<EOF
+INSERT INTO "todos" (user_id, task) VALUES ((SELECT user_id FROM users WHERE name ILIKE ('$1')), ('$2'))
+EOF
 }
 
 main() {
