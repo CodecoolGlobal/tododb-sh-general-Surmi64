@@ -13,16 +13,23 @@
 
 list_users() {
     psql <<EOF
-SELECT * FROM "user"
+SELECT * FROM ubuntu_schema.user
 EOF
 }
 
 list_todos() {
-    echo "Your code"
+    psql <<EOF
+SELECT * FROM ubuntu_schema.todo
+EOF
 }
 
 list_user_todos() {
-    echo "User: $1"
+    psql <<EOF
+SELECT * FROM ubuntu_schema.user
+INNER JOIN ubuntu_schema.todo
+ON ubuntu_schema.user.id = ubuntu_schema.todo.user_id
+ORDER BY ubuntu_schema.user.name
+EOF
 }
 
 main() {
