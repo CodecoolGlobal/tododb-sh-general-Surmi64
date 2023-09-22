@@ -13,16 +13,23 @@
 
 list_users() {
     psql <<EOF
-SELECT * FROM "user"
+SELECT * FROM basic_schema.user
 EOF
 }
 
 list_todos() {
-    echo "Your code"
+    psql <<EOF
+SELECT * FROM basic_schema.todo
+EOF
 }
 
 list_user_todos() {
-    echo "User: $1"
+    psql <<EOF
+SELECT name, user_id, task, "done" FROM basic_schema.user
+INNER JOIN basic_schema.todo
+on basic_schema.user.id = basic_schema.todo.user_id
+ORDER BY basic_schema.user.name
+EOF
 }
 
 main() {
