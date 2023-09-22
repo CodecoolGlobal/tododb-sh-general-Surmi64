@@ -11,12 +11,18 @@
 #
 
 add_user() {
-    echo "User: $1"
+    psql <<EOF
+    INSERT INTO basic_schema.user (name)
+    VALUES ('$1');
+EOF
+    echo "$1 added to user-table."
 }
 
 add_todo() {
-    echo "User: $1"
-    echo "Todo: $2"
+    psql <<EOF
+INSERT INTO basic_schema.todo (user_id, task) 
+VALUES ((SELECT id FROM basic_schema.user WHERE name ILIKE ('$1')), ('$2'))
+EOF
 }
 
 main() {
